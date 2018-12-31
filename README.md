@@ -5,3 +5,8 @@ After initializing VPN (Using Openvpn), these scripts have a server and a client
 
 *NOTES*
 eth0 is the name of your primary interface. I am using an OpenVZ container from RamNode which uses venet0
+
+Make sure:
+net.ipv4.ip_forward = 1
+
+is listed in /etc/sysctl.conf
