@@ -10,3 +10,6 @@ Make sure:
 net.ipv4.ip_forward = 1
 
 is listed in /etc/sysctl.conf
+
+Edit - Trying to move to EasyRSA3
+https://www.sys-dev.cat/blog/3/
