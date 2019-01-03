@@ -16,8 +16,13 @@ https://www.sys-dev.cat/blog/3/
 http://www.startupcto.com/server-tech/centos/setting-up-openvpn-server-on-centos
 
 cp vars.example vars
+
 ./easyrsa init-pki
+
 ./easyrsa build-ca nopass
+
 ./easyrsa gen-dh
+
 ./easyrsa build-server-full server nopass
+
 ./easyrsa build-client-full client-01 nopass
