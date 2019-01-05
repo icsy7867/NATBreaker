@@ -1,4 +1,9 @@
 #!/bin/bash
+# venet0 is the externally facing interface on your VPS (Could be eth0 for example)
+# tun0 is the name of your openvpn tunnel
+# 10.8.0.6 is the IP Address of your internal NAT Openvpn Client.
+# 10.8.0.1 is the openvpn IP address of the openvpn server
+
 echo 1 > /proc/sys/net/ipv4/ip_forward
 
 iptables -A INPUT -i venet0 -p tcp --dport 22 -j ACCEPT   # Accept SSH
