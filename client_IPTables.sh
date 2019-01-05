@@ -1,5 +1,6 @@
 #!/bin/bash
-
+#17.181.30.231 Is the openvpn Client NAT IP Address
+#Other 17.181.30.X is the internal NAT IP address
 # https://serverfault.com/questions/586486/how-to-do-the-port-forwarding-from-one-ip-to-another-ip-in-same-network
 
 iptables -F
