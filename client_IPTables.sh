@@ -1,36 +1,33 @@
 #!/bin/bash
-#172.20.30.231 Is the openvpn Client NAT IP Address
-#Other 172.20.30.X is the internal NAT IP address
+
 # https://serverfault.com/questions/586486/how-to-do-the-port-forwarding-from-one-ip-to-another-ip-in-same-network
+
+interfaceName="eth0"
+tunInterface="tun0"
+clientIP="192.168.255.6"
+serverIP="192.168.255.1"
+
+declare -a ports
+ports=( 443 32400 )
+declare -a destinations
+destinations=( 17.181.30.18 17.181.30.10 )
+hostIP=$(hostname -i)
+
+
 
 iptables -F
 iptables -t nat -F
 iptables -X
 
-## Web Servers
-iptables -t nat -A PREROUTING -p tcp --dport 443 -j DNAT --to-destination 172.20.30.9:443
-iptables -t nat -A POSTROUTING -p tcp -d 172.20.30.9 --dport 443 -j SNAT --to-source 172.20.30.231
+for i in "${!ports[@]}"
 
-## Web Servers
-iptables -t nat -A PREROUTING -p tcp --dport 80 -j DNAT --to-destination 172.20.30.9:80
-iptables -t nat -A POSTROUTING -p tcp -d 172.20.30.9 --dport 80 -j SNAT --to-source 172.20.30.231
+do
+        port=${ports[$i]}
+        echo $port
+        destination=${destinations[$i]}
+        echo $destination
 
-## Minecraft PE
-iptables -t nat -A PREROUTING -p udp --dport 19132 -j DNAT --to-destination 172.20.30.9:19132
-iptables -t nat -A POSTROUTING -p udp -d 172.20.30.9 --dport 19132 -j SNAT --to-source 172.20.30.231
+        iptables -t nat -A PREROUTING -p tcp --dport $port -j DNAT --to-destination $destination:$port
+        iptables -t nat -A POSTROUTING -p tcp -d $destination --dport $port -j SNAT --to-source ${hostIP}
 
-## Emby
-iptables -t nat -A PREROUTING -p tcp --dport 8920 -j DNAT --to-destination 172.20.30.10:8920
-iptables -t nat -A POSTROUTING -p tcp -d 172.20.30.10 --dport 8920 -j SNAT --to-source 172.20.30.231
-
-## openvpn
-iptables -t nat -A PREROUTING -p udp --dport 1194 -j DNAT --to-destination 172.20.30.8:1194
-iptables -t nat -A POSTROUTING -p udp -d 172.20.30.8 --dport 1194 -j SNAT --to-source 172.20.30.231
-
-## RDP
-iptables -t nat -A PREROUTING -p tcp --dport 3389 -j DNAT --to-destination 172.20.30.13:3389
-iptables -t nat -A POSTROUTING -p tcp -d 172.20.30.13 --dport 3389 -j SNAT --to-source 172.20.30.231
-
-## RDP
-iptables -t nat -A PREROUTING -p udp --dport 3389 -j DNAT --to-destination 172.20.30.13:3389
-iptables -t nat -A POSTROUTING -p udp -d 172.20.30.13 --dport 3389 -j SNAT --to-source 172.20.30.231
+done
