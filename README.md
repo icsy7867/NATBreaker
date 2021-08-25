@@ -34,5 +34,5 @@ ports=( 443 32400 )
 destinations=( 17.181.30.18 17.181.30.10 )
 ```
 
-443 will get routed to the internal network of 17.181.30.18
-and 32400 will get routed to 17.181.30.10.
+443 will get routed to the internal network of 172.20.30.18
+and 32400 will get routed to 172.20.30.10.
