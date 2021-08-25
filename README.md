@@ -16,7 +16,7 @@ While this does not cover setting up OpenVPN or another tunnel service, I am usi
 
 I am using https://github.com/dperson/openvpn-client for my internal client.
 
-#Server Config:
+# Server Config:
 Set your server openvpn IP address and the destination openvpn IP address (The Kylemanna container issues a 192.168.255.X).  Also set the ports you are forwarding in the array:
 ```
 #for ports 443 and 32400 through the tunnel
@@ -24,7 +24,7 @@ ports=( 443 32400 )
 
 ```
 
-#Client Config:
+# Client Config:
 Set the same client and server OpenVPN IP addresses, as well as the same destination ports.  Additionally, though, you need to direct the packets to their final destinations.  The `destinations` array should be in the same order as your `ports` array.
 
 So for:
