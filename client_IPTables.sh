@@ -10,7 +10,7 @@ serverIP="192.168.255.1"
 declare -a ports
 ports=( 443 32400 )
 declare -a destinations
-destinations=( 17.181.30.18 17.181.30.10 )
+destinations=( 172.20.30.18 172.20.30.10 )
 hostIP=$(hostname -i)
 
 
